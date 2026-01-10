@@ -18,7 +18,7 @@
     /* Typography */
     --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-    /* Transitions (Slow & Smooth) */
+    /* Transitions */
     --transition: 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
     --transition-fast: 0.3s ease;
 }
@@ -47,7 +47,6 @@ a:hover {
     opacity: 0.7;
 }
 
-/* Containers */
 .container {
     max-width: var(--container-width);
     margin: 0 auto;
@@ -269,7 +268,6 @@ a:hover {
     background: var(--c-black);
 }
 
-
 /* ==========================================================================
    5. PERFECT PERCENTAGE GRID (10 ITEMS LOOP)
    ========================================================================== */
@@ -284,17 +282,13 @@ a:hover {
 
 .chaotic-grid {
     display: grid;
-    /* Математика: 100% / 5% = 20 колонок. 
-       Это позволяет делать блоки шириной 5%, 10%, 15%, 45% и т.д.
-    */
+    /* 100% / 5% = 20 columns */
     grid-template-columns: repeat(20, 1fr);
-    /* Высота рядов. 15vw дает хороший кинематографичный вид */
     grid-auto-rows: 15vw;
     gap: 0;
     grid-auto-flow: dense;
 }
 
-/* Base Item */
 .grid-item {
     position: relative;
     width: 100%;
@@ -321,71 +315,63 @@ a:hover {
     transform: scale(1.1);
 }
 
-
 /* --- PATTERN (10 Items Loop) --- */
-/* Используем span X, где X = процент / 5 */
 
-/* 1. 40% ширины (8 колонок), 2 ряда. [Left Top] */
+/* 1. 40% width (8 cols), 2 rows [Left Top] */
 .grid-item:nth-child(10n + 1) {
     grid-column: span 8;
     grid-row: span 2;
 }
 
-/* 2. 15% ширины (3 колонки), 1 ряд. [Top Middle] */
+/* 2. 15% width (3 cols), 1 row [Top Middle] */
 .grid-item:nth-child(10n + 2) {
     grid-column: span 3;
     grid-row: span 1;
 }
 
-/* 3. 15% ширины (3 колонки), 1 ряд. [Top Middle-Right] */
+/* 3. 15% width (3 cols), 1 row [Top Middle-Right] */
 .grid-item:nth-child(10n + 3) {
     grid-column: span 3;
     grid-row: span 1;
 }
 
-/* 4. 30% ширины (6 колонок), 1 ряд. [Middle under 2 and 3] */
-/* Т.к. 15+15=30, он идеально встает под 2 и 3 */
+/* 4. 30% width (6 cols), 1 row [Middle under 2 and 3] */
 .grid-item:nth-child(10n + 4) {
     grid-column: span 6;
     grid-row: span 1;
 }
 
-/* 5. 30% ширины (6 колонок), 2 ряда. [Right Top & Middle] */
-/* Принудительно ставим в конец строки (начиная с 15 колонки), чтобы заполнить правый край */
+/* 5. 30% width (6 cols), 2 rows [Right Top & Middle] */
 .grid-item:nth-child(10n + 5) {
     grid-column: 15 / span 6;
     grid-row: span 2;
-    /* grid-row-start будет вычислен автоматически как 1, т.к. там пусто */
 }
 
-/* 6. 30% ширины (6 колонок), 2 ряда. [Left Bottom] */
-/* Начинается в 3 ряду */
+/* 6. 30% width (6 cols), 2 rows [Left Bottom] */
 .grid-item:nth-child(10n + 6) {
     grid-column: span 6;
     grid-row: span 2;
 }
 
-/* 7. 25% ширины (5 колонок), 1 ряд. [Middle-Left Bottom] */
+/* 7. 25% width (5 cols), 1 row [Middle-Left Bottom] */
 .grid-item:nth-child(10n + 7) {
     grid-column: span 5;
     grid-row: span 1;
 }
 
-/* 8. 10% ширины (2 колонки), 1 ряд. [Under 7 Left] */
-/* Прижимаем к 7-й колонке (сразу после 6-го элемента) */
+/* 8. 10% width (2 cols), 1 row [Under 7 Left] */
 .grid-item:nth-child(10n + 8) {
     grid-column: 6 / span 3;
     grid-row: span 1;
 }
 
-/* 9. 15% ширины (3 колонки), 1 ряд. [Under 7 Right] */
+/* 9. 15% width (3 cols), 1 row [Under 7 Right] */
 .grid-item:nth-child(10n + 9) {
     grid-column: 9 / span 3;
     grid-row: span 1;
 }
 
-/* 10. 45% ширины (9 колонок), 2 ряда. [Right Bottom] */
-/* Занимает всё оставшееся место справа внизу */
+/* 10. 45% width (9 cols), 2 rows [Right Bottom] */
 .grid-item:nth-child(10n + 10) {
     grid-column: 12 / span 9;
     grid-row: span 2;
@@ -408,7 +394,7 @@ a:hover {
 }
 
 /* ==========================================================================
-   7. RESPONSIVE
+   7. GRID RESPONSIVE (GLOBAL)
    ========================================================================== */
 @media (max-width: 1024px) {
     :root {
@@ -420,19 +406,19 @@ a:hover {
         padding: 0 20px;
     }
 
-    /* Tablet: Упрощаем до 2 колонок */
+    /* Tablet: Simplify to 2 columns */
     .chaotic-grid {
         grid-template-columns: repeat(2, 1fr);
         grid-auto-rows: 50vw;
     }
 
-    /* Сброс всех сложных привязок */
+    /* Reset complex spans */
     .grid-item:nth-child(n) {
         grid-column: span 1 !important;
         grid-row: span 1 !important;
     }
 
-    /* Шахматный порядок для интереса */
+    /* Chess pattern */
     .grid-item:nth-child(3n + 1) {
         grid-column: span 2 !important;
         grid-row: span 2 !important;
@@ -512,7 +498,6 @@ a:hover {
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
     pointer-events: none;
-    /* Чтобы не мешал кликам, когда скрыт */
 }
 
 .lightbox.active {
@@ -521,7 +506,6 @@ a:hover {
     pointer-events: auto;
 }
 
-/* Фон (полупрозрачный белый, как на референсе) */
 .lightbox-overlay {
     position: absolute;
     top: 0;
@@ -530,10 +514,8 @@ a:hover {
     height: 100%;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(5px);
-    /* Легкий блюр фона */
 }
 
-/* Контейнер картинки */
 .lightbox-container {
     position: relative;
     z-index: 10;
@@ -549,14 +531,9 @@ a:hover {
     max-height: 90vh;
     object-fit: contain;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-
-    /* Начальное состояние */
     transform: scale(0.96);
     opacity: 0;
-
-    /* Плавные переходы для трансформации и прозрачности */
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-        opacity 0.4s ease;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
 }
 
 #lightbox-img.visible {
@@ -564,9 +541,7 @@ a:hover {
     opacity: 1;
 }
 
-.lightbox.active #lightbox-img {}
-
-/* Кнопки навигации */
+/* Nav Buttons */
 .lightbox-close,
 .lightbox-prev,
 .lightbox-next {
@@ -581,7 +556,6 @@ a:hover {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    /* Увеличиваем область клика */
 }
 
 .lightbox-close {
@@ -615,16 +589,13 @@ a:hover {
 
 .lightbox-close:hover {
     transform: scale(1.1);
-    /* У крестика нет translateY */
 }
 
-/* Адаптив для мобильных */
 @media (max-width: 768px) {
 
     .lightbox-prev,
     .lightbox-next {
         display: none;
-        /* На мобилке лучше свайпать или просто кликать, стрелки мешают */
     }
 
     #lightbox-img {
@@ -652,27 +623,21 @@ a:hover {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 250px;
     row-gap: 150px;
-    /* Grid по умолчанию растягивает ячейки (items) по высоте самого высокого элемента в ряду */
 }
 
 .service-item {
     display: flex;
     flex-direction: column;
-    /* Выстраиваем контент вертикально */
     height: 100%;
-    /* Занимаем всю высоту ячейки грида */
     gap: 30px;
-    /* Отступ между медиа и контентом */
 }
 
-/* --- Media Area --- */
 .service-media {
     position: relative;
     width: 100%;
     aspect-ratio: 3 / 4;
     overflow: hidden;
     background: #f0f0f0;
-    /* Медиа не должно сжиматься, если текста много */
     flex-shrink: 0;
 }
 
@@ -691,13 +656,10 @@ a:hover {
     opacity: 0.85;
 }
 
-/* --- Content Wrapper --- */
-/* Обертка для текста, чтобы управлять высотой */
 .service-content {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    /* Занимает всё оставшееся место по высоте */
 }
 
 .service-title {
@@ -705,10 +667,8 @@ a:hover {
     font-weight: 400;
     margin-bottom: 15px;
     line-height: 1.2;
-    /* ТРЮК: Резервируем место минимум под 2 строки текста (1.2em * 2 = 2.4em).
-       Это гарантирует, что Description у всех начнется на одной высоте, 
-       даже если заголовок короткий. */
     min-height: 2.4em;
+    /* Height reserve for 2 lines */
 }
 
 .service-desc {
@@ -727,11 +687,9 @@ a:hover {
     display: inline-block;
     position: relative;
     padding-bottom: 5px;
-
-    /* ТРЮК: Толкает кнопку в самый низ контейнера .service-content */
     margin-top: auto;
+    /* Push to bottom */
     align-self: flex-start;
-    /* Чтобы кнопка не растягивалась на всю ширину */
 }
 
 .service-btn::after {
@@ -749,7 +707,6 @@ a:hover {
     width: 50%;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .services-grid {
         grid-template-columns: 1fr;
@@ -762,6 +719,365 @@ a:hover {
 
     .service-title {
         min-height: auto;
-        /* На мобилках выравнивание не так критично, убираем фикс. высоту */
+    }
+}
+
+/* ==========================================================================
+   10. QUOTE SECTION
+   ========================================================================== */
+.quote-section {
+    background-color: var(--c-black);
+    color: var(--c-white);
+    padding: 60px 0;
+    text-align: center;
+}
+
+.quote-content {
+    max-width: 1024px;
+    margin: 0 auto;
+    font-size: 40px;
+    line-height: 1.6;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+    .quote-section {
+        padding: 80px 0;
+    }
+
+    .quote-content {
+        font-size: 18px;
+        padding: 0 20px;
+    }
+}
+
+/* ==========================================================================
+   11. EXPERTISE SECTION
+   ========================================================================== */
+.expertise-section {
+    padding: 120px 0;
+    background-color: var(--c-white);
+    color: var(--c-text);
+}
+
+.expertise-header {
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.expertise-tagline {
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--c-text);
+    margin-bottom: 20px;
+    display: block;
+    max-width: 1024px;
+    margin-inline: auto;
+    width: 100%;
+}
+
+.expertise-main-title {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    width: 100%;
+}
+
+.title-top {
+    font-size: 72px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.title-bottom {
+    font-size: 160px;
+    font-weight: 500;
+    letter-spacing: -3px;
+    display: block;
+}
+
+.expertise-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 100px;
+    row-gap: 60px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.expertise-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.exp-item-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.exp-item-desc {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--c-text);
+}
+
+@media (max-width: 1024px) {
+    .title-top {
+        font-size: 40px;
+    }
+
+    .title-bottom {
+        font-size: 80px;
+    }
+
+    .expertise-grid {
+        column-gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .expertise-section {
+        padding: 80px 0;
+    }
+
+    .expertise-header {
+        margin-bottom: 60px;
+        text-align: left;
+    }
+
+    .expertise-main-title {
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .title-top {
+        font-size: 32px;
+    }
+
+    .title-bottom {
+        font-size: 60px;
+    }
+
+    .expertise-grid {
+        grid-template-columns: 1fr;
+        row-gap: 40px;
+    }
+}
+
+/* ==========================================================================
+   12. ABOUT SECTION
+   ========================================================================== */
+.about-section {
+    padding: 150px 0;
+    background-color: var(--c-white);
+    overflow: hidden;
+    /* На случай, если элементы будут вылетать на анимациях */
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr;
+    /* Левая колонка чуть шире, правая уже */
+    gap: 80px;
+    align-items: center;
+    /* Центрируем фото и текст по вертикали относительно друг друга */
+}
+
+/* --- Typography --- */
+.about-tagline {
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 30px;
+    color: var(--c-text);
+}
+
+.about-name {
+    font-size: 100px;
+    /* Огромный шрифт */
+    font-weight: 700;
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    letter-spacing: -2px;
+    color: var(--c-black);
+}
+
+.about-subheading {
+    font-size: 18px;
+    font-weight: 700;
+    font-style: italic;
+    /* Курсив как на референсе */
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+.about-bio {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--c-text-light);
+    max-width: 90%;
+}
+
+/* --- Image --- */
+.about-image-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.about-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Можно добавить легкую тень или эффект */
+    box-shadow: 20px 20px 0px var(--c-gray);
+    /* Декоративная подложка */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .about-name {
+        font-size: 80px;
+    }
+
+    .about-grid {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        padding: 80px 0;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        /* Одна колонка */
+        gap: 60px;
+    }
+
+    .about-image-wrapper {
+        order: -1;
+        /* На мобилке фото ставим ПЕРЕД текстом (опционально) */
+        max-width: 80%;
+        /* Чуть меньше на весь экран */
+        margin: 0 auto;
+    }
+
+    .about-name {
+        font-size: 60px;
+    }
+
+    .about-tagline {
+        margin-bottom: 20px;
+    }
+}
+
+/* ==========================================================================
+   13. CLIENTS SECTION
+   ========================================================================== */
+.clients-section {
+    background-color: var(--c-black);
+    color: var(--c-white);
+    padding: 120px 0;
+}
+
+.clients-header {
+    margin-bottom: 80px;
+}
+
+.clients-tagline {
+    font-size: 28px;
+    /* Чуть крупнее, как на референсе */
+    font-weight: 400;
+    /* Тонкий шрифт */
+    color: var(--c-white);
+    display: block;
+}
+
+.clients-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 колонки */
+    column-gap: 60px;
+    row-gap: 80px;
+    align-items: center;
+    justify-items: center;
+}
+
+.client-item {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.client-link,
+.client-logo-wrapper {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.client-logo {
+    max-width: 160px;
+    /* Ограничиваем размер лого, чтобы не рвало сетку */
+    width: auto;
+    height: auto;
+    max-height: 80px;
+    /* Ограничение по высоте для горизонтальных лого */
+    object-fit: contain;
+
+    /* Эффекты */
+    opacity: 0.7;
+    /* В покое чуть приглушены */
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
+
+    /* Опционально: Если загружают цветные лого, а нужны белые, можно раскомментировать: */
+    /* filter: brightness(0) invert(1); */
+    margin: 0 auto;
+}
+
+/* Hover Effects */
+.client-link:hover .client-logo,
+.client-logo-wrapper:hover .client-logo {
+    transform: scale(1.15);
+    /* Плавное увеличение */
+    opacity: 1;
+    /* Полная яркость */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .clients-grid {
+        gap: 40px;
+    }
+
+    .client-logo {
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 768px) {
+    .clients-section {
+        padding: 80px 0;
+    }
+
+    .clients-header {
+        margin-bottom: 40px;
+    }
+
+    .clients-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 колонки на мобилке */
+        column-gap: 30px;
+        row-gap: 50px;
     }
 }

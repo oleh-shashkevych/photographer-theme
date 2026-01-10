@@ -86,6 +86,124 @@ get_header();
         </div>
     </section>
 
+    <?php if( $quote = get_field('home_quote_text') ): ?>
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote-content">
+                <?php echo $quote; ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <section class="expertise-section">
+        <div class="container">
+            
+            <div class="expertise-header">
+                <?php if( $tag = get_field('exp_tagline') ): ?>
+                    <span class="expertise-tagline"><?php echo esc_html($tag); ?></span>
+                <?php endif; ?>
+
+                <h2 class="expertise-main-title">
+                    <span class="title-top"><?php echo esc_html(get_field('exp_title_top')); ?></span>
+                    <span class="title-bottom"><?php echo esc_html(get_field('exp_title_bottom')); ?></span>
+                </h2>
+            </div>
+
+            <div class="expertise-grid">
+                <?php if( have_rows('exp_list') ): ?>
+                    <?php while( have_rows('exp_list') ): the_row(); ?>
+                        <div class="expertise-item">
+                            <h3 class="exp-item-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
+                            <div class="exp-item-desc">
+                                <?php echo wp_kses_post(get_sub_field('description')); ?>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+            </div>
+
+        </div>
+    </section>
+
+    <?php if( $quote2 = get_field('home_quote_text_2') ): ?>
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote-content">
+                <?php echo $quote2; ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                
+                <div class="about-content">
+                    <?php if( $tag = get_field('about_tagline') ): ?>
+                        <span class="about-tagline"><?php echo esc_html($tag); ?></span>
+                    <?php endif; ?>
+
+                    <h2 class="about-name">
+                        <?php echo get_field('about_name'); ?>
+                    </h2>
+
+                    <?php if( $sub = get_field('about_subheading') ): ?>
+                        <h3 class="about-subheading"><?php echo esc_html($sub); ?></h3>
+                    <?php endif; ?>
+
+                    <div class="about-bio">
+                        <?php echo wp_kses_post(get_field('about_bio')); ?>
+                    </div>
+                </div>
+
+                <div class="about-image-wrapper">
+                    <?php 
+                    $about_img = get_field('about_image');
+                    if( $about_img ) {
+                        echo wp_get_attachment_image( $about_img, 'large', false, array('class' => 'about-img') );
+                    }
+                    ?>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="clients-section">
+        <div class="container">
+            
+            <?php if( $tag = get_field('clients_tagline') ): ?>
+                <div class="clients-header">
+                    <span class="clients-tagline"><?php echo esc_html($tag); ?></span>
+                </div>
+            <?php endif; ?>
+
+            <div class="clients-grid">
+                <?php if( have_rows('clients_list') ): ?>
+                    <?php while( have_rows('clients_list') ): the_row(); 
+                        $logo = get_sub_field('logo');
+                        $link = get_sub_field('link');
+                    ?>
+                        <div class="client-item">
+                            <?php if( $link ): ?>
+                                <a href="<?php echo esc_url($link); ?>" target="_blank" rel="noopener" class="client-link">
+                                    <?php echo wp_get_attachment_image( $logo, 'medium', false, array('class' => 'client-logo') ); ?>
+                                </a>
+                            <?php else: ?>
+                                <div class="client-logo-wrapper">
+                                    <?php echo wp_get_attachment_image( $logo, 'medium', false, array('class' => 'client-logo') ); ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    <?php endwhile; ?>
+                <?php endif; ?>
+            </div>
+
+        </div>
+    </section>
+
 </main>
 
 <?php get_footer(); ?>
