@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     gridImages.forEach((img, index) => {
         const item = img.closest('.grid-item');
-        item.style.cursor = 'pointer';
+        item.style.cursor = 'zoom-in';
 
         item.addEventListener('click', (e) => {
             e.preventDefault();
