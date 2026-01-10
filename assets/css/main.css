@@ -1081,3 +1081,95 @@ a:hover {
         row-gap: 50px;
     }
 }
+
+/* ==========================================================================
+   6. FOOTER
+   ========================================================================== */
+.site-footer {
+    padding: 40px 0;
+    background: var(--c-white);
+    /* Белый фон */
+    color: var(--c-black);
+    /* Черный текст */
+    border-top: 1px solid var(--c-gray);
+    /* Легкая линия сверху для разделения */
+}
+
+/* Socials (Center or Top) */
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    transition: opacity 0.3s ease;
+    /* Если иконки черные, можно оставить так. Если цветные - можно обесцветить */
+    /* filter: grayscale(100%); */
+}
+
+.social-item:hover .social-icon {
+    opacity: 0.6;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Left */
+.footer-link {
+    text-transform: none;
+    color: var(--c-black);
+}
+
+/* Right */
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-logo-icon {
+    width: 20px;
+    height: auto;
+    display: block;
+}
+
+.copyright-text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.author-name {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 40px 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column-reverse;
+        /* На мобилке копирайт снизу, ссылки сверху */
+        gap: 20px;
+    }
+
+    .footer-right {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
