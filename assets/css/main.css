@@ -1083,6 +1083,333 @@ a:hover {
 }
 
 /* ==========================================================================
+   14. PORTFOLIO PAGE HERO
+   ========================================================================== */
+.portfolio-hero {
+    padding: 180px 0 100px; /* Большой отступ сверху (под хедер + воздух) */
+    background-color: var(--c-white);
+    text-align: center;
+}
+
+.port-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.port-hero-title {
+    font-size: 80px; /* Крупный заголовок */
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    color: var(--c-black);
+}
+
+.port-hero-desc {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--c-text-light);
+    max-width: 600px;
+}
+
+/* CTA Button */
+.hero-cta-btn {
+    display: inline-block;
+    background-color: var(--c-black);
+    color: var(--c-white);
+    padding: 18px 40px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    border-radius: 50px; /* Овальная кнопка */
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s;
+    margin-top: 20px;
+}
+
+.hero-cta-btn:hover {
+    background-color: #333;
+    transform: translateY(-5px); /* Легкий подъем при наведении */
+    opacity: 1; /* Перебиваем глобальный a:hover opacity */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .portfolio-hero {
+        padding: 140px 0 60px;
+    }
+
+    .port-hero-title {
+        font-size: 48px;
+    }
+
+    .port-hero-desc {
+        font-size: 16px;
+    }
+}
+
+/* ==========================================================================
+   15. CONTACT PAGE
+   ========================================================================== */
+.contact-section {
+    padding: 180px 0 100px;
+    min-height: 100vh;
+    background-color: var(--c-white);
+    display: flex;
+    align-items: center; /* Центруем по вертикали, если экран высокий */
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr; /* Картинка чуть уже, форма шире */
+    gap: 80px;
+    align-items: flex-start;
+}
+
+/* --- Left: Animated Chevron --- */
+.contact-visual {
+    position: relative;
+    width: 100%;
+    /* Фильтр-тень для всего блока (так как clip-path обрезает обычную тень, используем drop-shadow) */
+    filter: drop-shadow(20px 20px 0px rgba(0,0,0,0.05)); 
+}
+
+.contact-image-shape {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    
+    /* Форма шеврона (стрелка вправо) */
+    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%);
+    
+    background: var(--c-black);
+    transform: translateZ(0); /* Фикс для Safari */
+}
+
+.c-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* Ховер эффект: картинка чуть зумится, а анимация ускоряется (опционально) */
+.contact-image-shape:hover .c-img {
+    transform: scale(1.05);
+}
+
+/* --- Right: Content --- */
+.contact-info {
+    padding-top: 20px;
+}
+
+.contact-title {
+    font-size: 60px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.contact-desc {
+    font-size: 18px;
+    color: var(--c-text-light);
+    margin-bottom: 50px;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+/* --- CF7 Minimalist Styling --- */
+.cf7-custom-form .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.cf7-custom-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.cf7-custom-form label {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--c-black);
+}
+
+.cf7-custom-form input[type="text"],
+.cf7-custom-form input[type="email"],
+.cf7-custom-form input[type="tel"],
+.cf7-custom-form textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--c-border);
+    background: transparent;
+    padding: 15px 0;
+    font-family: inherit;
+    font-size: 18px;
+    color: var(--c-black);
+    transition: border-color 0.3s;
+    border-radius: 0;
+    appearance: none;
+}
+
+/* Активное состояние поля */
+.cf7-custom-form input:focus,
+.cf7-custom-form textarea:focus {
+    outline: none;
+    border-bottom-color: var(--c-black);
+}
+
+.cf7-custom-form input[type="submit"] {
+    background: var(--c-black);
+    color: var(--c-white);
+    border: none;
+    padding: 20px 60px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 50px;
+    margin-top: 20px;
+}
+
+.cf7-custom-form input[type="submit"]:hover {
+    background-color: #333;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Ошибки валидации CF7 (стилизация) */
+.wpcf7-not-valid-tip {
+    font-size: 12px;
+    color: #e74c3c;
+    margin-top: 5px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+    
+    .contact-image-shape {
+        max-width: 100%;
+        aspect-ratio: 16/9;
+        /* На мобилке форма попроще, чтобы влезла контент */
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%); 
+    }
+    
+    .contact-title { font-size: 40px; }
+    
+    .cf7-custom-form .form-row-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* ==========================================================================
+   16. TEXT PAGE (LEGAL / INFO)
+   ========================================================================== */
+.text-page-section {
+    padding: 180px 0 100px; /* Отступ под хедер */
+    background-color: var(--c-white);
+    min-height: 80vh;
+}
+
+.text-page-wrapper {
+    max-width: 800px; /* Узкая колонка для читабельности */
+    margin: 0 auto;
+}
+
+.page-main-title {
+    font-size: 60px;
+    font-weight: 500;
+    margin-bottom: 60px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    border-bottom: 1px solid var(--c-border);
+    padding-bottom: 40px;
+}
+
+/* Стилизация контента из редактора */
+.text-content-area {
+    font-size: 16px;
+    line-height: 1.8; /* Чуть больше воздуха между строками */
+    color: var(--c-text);
+}
+
+.text-content-area h2 {
+    font-size: 28px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.text-content-area h3 {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.text-content-area p {
+    margin-bottom: 20px;
+}
+
+.text-content-area ul, 
+.text-content-area ol {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.text-content-area li {
+    margin-bottom: 10px;
+}
+
+.text-content-area a {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.text-content-area a:hover {
+    color: var(--c-text-light);
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .text-page-section {
+        padding: 140px 0 60px;
+    }
+    
+    .page-main-title {
+        font-size: 40px;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+    }
+    
+    .text-content-area h2 {
+        font-size: 24px;
+    }
+}
+
+/* ==========================================================================
    6. FOOTER
    ========================================================================== */
 .site-footer {

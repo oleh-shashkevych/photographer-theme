@@ -8,34 +8,30 @@ get_header();
 
 <main class="site-main">
     
+    <?php if( have_rows('portfolio_gallery') ): ?>
     <section class="portfolio-grid">
         <div class="container-fluid">
             
             <div class="chaotic-grid">
-                
-                <?php if( have_rows('portfolio_gallery') ): ?>
-                    
-                    <?php 
-                    $counter = 0; // Счетчик для классов, если нужно, но мы юзаем nth-child
-                    while( have_rows('portfolio_gallery') ): the_row(); 
-                        $image_id = get_sub_field('image'); 
-                        ?>
-                        
-                        <div class="grid-item">
-                            <div class="grid-item__inner">
-                                <?php echo wp_get_attachment_image( $image_id, 'full', false, ['class' => 'grid-img'] ); ?>
-                            </div>
+                <?php 
+                $counter = 0; 
+                while( have_rows('portfolio_gallery') ): the_row(); 
+                    $image_id = get_sub_field('image'); 
+                    ?>
+                    <div class="grid-item">
+                        <div class="grid-item__inner">
+                            <?php echo wp_get_attachment_image( $image_id, 'full', false, ['class' => 'grid-img'] ); ?>
                         </div>
-
-                    <?php endwhile; ?>
-
-                <?php endif; ?>
-
+                    </div>
+                <?php endwhile; ?>
             </div>
 
         </div>
     </section>
+    <?php endif; ?>
 
+
+    <?php if( have_rows('services_list') ): ?>
     <section class="services-section">
         <div class="container">
             
@@ -44,47 +40,46 @@ get_header();
             <?php endif; ?>
 
             <div class="services-grid">
-                <?php if( have_rows('services_list') ): ?>
-                    <?php while( have_rows('services_list') ): the_row(); 
-                        $type = get_sub_field('media_type');
-                        $title = get_sub_field('title');
-                        $desc = get_sub_field('description');
-                        $btn = get_sub_field('btn_label');
-                        $slug = get_sub_field('slug');
-                        // Ссылка на будущую страницу контактов с параметром
-                        $link = home_url('/contact/?service_id=' . $slug); 
-                    ?>
+                <?php while( have_rows('services_list') ): the_row(); 
+                    $type = get_sub_field('media_type');
+                    $title = get_sub_field('title');
+                    $desc = get_sub_field('description');
+                    $btn = get_sub_field('btn_label');
+                    $slug = get_sub_field('slug');
+                    $link = home_url('/contact/?service_id=' . $slug); 
+                ?>
+                
+                <div class="service-item">
                     
-                    <div class="service-item">
-                        
-                        <div class="service-media">
-                            <a href="<?php echo esc_url($link); ?>" class="media-link">
-                                <?php if( $type == 'video' && $vid_url = get_sub_field('video') ): ?>
-                                    <video autoplay loop muted playsinline>
-                                        <source src="<?php echo esc_url($vid_url); ?>" type="video/mp4">
-                                    </video>
-                                <?php elseif( $img_id = get_sub_field('image') ): ?>
-                                    <?php echo wp_get_attachment_image( $img_id, 'large' ); ?>
-                                <?php endif; ?>
-                            </a>
-                        </div>
-
-                        <div class="service-content">
-                            <h3 class="service-title"><?php echo esc_html($title); ?></h3>
-                            <div class="service-desc"><?php echo wp_kses_post($desc); ?></div>
-                            <a href="<?php echo esc_url($link); ?>" class="service-btn">
-                                <?php echo esc_html($btn); ?>
-                            </a>
-                        </div>
-
+                    <div class="service-media">
+                        <a href="<?php echo esc_url($link); ?>" class="media-link">
+                            <?php if( $type == 'video' && $vid_url = get_sub_field('video') ): ?>
+                                <video autoplay loop muted playsinline>
+                                    <source src="<?php echo esc_url($vid_url); ?>" type="video/mp4">
+                                </video>
+                            <?php elseif( $img_id = get_sub_field('image') ): ?>
+                                <?php echo wp_get_attachment_image( $img_id, 'large' ); ?>
+                            <?php endif; ?>
+                        </a>
                     </div>
 
-                    <?php endwhile; ?>
-                <?php endif; ?>
+                    <div class="service-content">
+                        <h3 class="service-title"><?php echo esc_html($title); ?></h3>
+                        <div class="service-desc"><?php echo wp_kses_post($desc); ?></div>
+                        <a href="<?php echo esc_url($link); ?>" class="service-btn">
+                            <?php echo esc_html($btn); ?>
+                        </a>
+                    </div>
+
+                </div>
+
+                <?php endwhile; ?>
             </div>
 
         </div>
     </section>
+    <?php endif; ?>
+
 
     <?php if( $quote = get_field('home_quote_text') ): ?>
     <section class="quote-section">
@@ -96,6 +91,8 @@ get_header();
     </section>
     <?php endif; ?>
 
+
+    <?php if( have_rows('exp_list') ): ?>
     <section class="expertise-section">
         <div class="container">
             
@@ -111,20 +108,20 @@ get_header();
             </div>
 
             <div class="expertise-grid">
-                <?php if( have_rows('exp_list') ): ?>
-                    <?php while( have_rows('exp_list') ): the_row(); ?>
-                        <div class="expertise-item">
-                            <h3 class="exp-item-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
-                            <div class="exp-item-desc">
-                                <?php echo wp_kses_post(get_sub_field('description')); ?>
-                            </div>
+                <?php while( have_rows('exp_list') ): the_row(); ?>
+                    <div class="expertise-item">
+                        <h3 class="exp-item-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
+                        <div class="exp-item-desc">
+                            <?php echo wp_kses_post(get_sub_field('description')); ?>
                         </div>
-                    <?php endwhile; ?>
-                <?php endif; ?>
+                    </div>
+                <?php endwhile; ?>
             </div>
 
         </div>
     </section>
+    <?php endif; ?>
+
 
     <?php if( $quote2 = get_field('home_quote_text_2') ): ?>
     <section class="quote-section">
@@ -136,6 +133,8 @@ get_header();
     </section>
     <?php endif; ?>
 
+
+    <?php if( get_field('about_name') ): ?>
     <section class="about-section">
         <div class="container">
             <div class="about-grid">
@@ -170,7 +169,10 @@ get_header();
             </div>
         </div>
     </section>
+    <?php endif; ?>
 
+
+    <?php if( have_rows('clients_list') ): ?>
     <section class="clients-section">
         <div class="container">
             
@@ -181,28 +183,27 @@ get_header();
             <?php endif; ?>
 
             <div class="clients-grid">
-                <?php if( have_rows('clients_list') ): ?>
-                    <?php while( have_rows('clients_list') ): the_row(); 
-                        $logo = get_sub_field('logo');
-                        $link = get_sub_field('link');
-                    ?>
-                        <div class="client-item">
-                            <?php if( $link ): ?>
-                                <a href="<?php echo esc_url($link); ?>" target="_blank" rel="noopener" class="client-link">
-                                    <?php echo wp_get_attachment_image( $logo, 'medium', false, array('class' => 'client-logo') ); ?>
-                                </a>
-                            <?php else: ?>
-                                <div class="client-logo-wrapper">
-                                    <?php echo wp_get_attachment_image( $logo, 'medium', false, array('class' => 'client-logo') ); ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    <?php endwhile; ?>
-                <?php endif; ?>
+                <?php while( have_rows('clients_list') ): the_row(); 
+                    $logo = get_sub_field('logo');
+                    $link = get_sub_field('link');
+                ?>
+                    <div class="client-item">
+                        <?php if( $link ): ?>
+                            <a href="<?php echo esc_url($link); ?>" target="_blank" rel="noopener" class="client-link">
+                                <?php echo wp_get_attachment_image( $logo, 'medium', false, array('class' => 'client-logo') ); ?>
+                            </a>
+                        <?php else: ?>
+                            <div class="client-logo-wrapper">
+                                <?php echo wp_get_attachment_image( $logo, 'medium', false, array('class' => 'client-logo') ); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endwhile; ?>
             </div>
 
         </div>
     </section>
+    <?php endif; ?>
 
 </main>
 

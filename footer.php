@@ -18,11 +18,33 @@
             
             <div class="footer-left">
                 <?php 
-                $privacy = get_field('footer_privacy_link', 'option');
-                if( $privacy ): ?>
-                    <a href="<?php echo esc_url($privacy); ?>" class="footer-link">Terms & Privacy</a>
+                // 1. Получаем ссылку на страницу политики (из Настройки -> Конфиденциальность)
+                $privacy_url = get_privacy_policy_url();
+
+                // 2. Определяем текущий язык и меняем текст
+                $locale = get_locale(); // Получаем код языка (напр. 'uk', 'ru_RU', 'en_US')
+                
+                // Дефолтный текст (английский)
+                $privacy_text = 'Terms & Privacy';
+
+                // Если русский
+                if ( strpos($locale, 'ru') === 0 ) {
+                    $privacy_text = 'Политика конфиденциальности';
+                } 
+                // Если украинский
+                elseif ( strpos($locale, 'uk') === 0 ) {
+                    $privacy_text = 'Політика конфіденційності';
+                }
+
+                // 3. Вывод
+                if( $privacy_url ): ?>
+                    <a href="<?php echo esc_url($privacy_url); ?>" class="footer-link">
+                        <?php echo esc_html($privacy_text); ?>
+                    </a>
                 <?php else: ?>
-                    <span class="footer-link">Terms & Privacy</span>
+                    <span class="footer-link">
+                        <?php echo esc_html($privacy_text); ?>
+                    </span>
                 <?php endif; ?>
             </div>
 

@@ -5,13 +5,6 @@ acf_add_local_field_group(array(
     'key' => 'group_theme_footer',
     'title' => 'Footer Settings',
     'fields' => array(
-        // Ссылка на Terms & Privacy
-        array(
-            'key' => 'field_footer_privacy_link',
-            'label' => 'Terms & Privacy Link',
-            'name' => 'footer_privacy_link',
-            'type' => 'url',
-        ),
         // Иконка перед копирайтом
         array(
             'key' => 'field_footer_icon',
