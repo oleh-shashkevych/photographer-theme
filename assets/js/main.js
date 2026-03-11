@@ -1,14 +1,69 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    // === PAGE TRANSITIONS (CAMERA SHUTTER EFFECT) ===
+    const preloader = document.querySelector('.site-preloader');
+
+    if (preloader) {
+        // 1. Open shutter on initial page load
+        // Hold for 500ms to show the beautiful focus animation, then slide up
+        setTimeout(() => {
+            preloader.classList.add('is-hidden');
+        }, 500);
+
+        // 2. Intercept link clicks to close shutter before navigating
+        // Select all links that are not external, anchors, or mailto/tel
+        const internalLinks = document.querySelectorAll('a[href]:not([target="_blank"]):not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"])');
+
+        internalLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetUrl = link.href;
+
+                // Ignore cmd/ctrl clicks (allow opening in new tab)
+                if (e.metaKey || e.ctrlKey) return;
+
+                // Ignore if it's the exact same page
+                if (targetUrl === window.location.href) return;
+
+                // Stop browser from navigating immediately
+                e.preventDefault();
+
+                // Instantly move shutter to top without animation
+                preloader.classList.remove('is-hidden');
+                preloader.style.transition = 'none';
+                preloader.style.transform = 'translateY(-100%)';
+
+                // Force browser reflow to apply the instant move
+                void preloader.offsetWidth;
+
+                // Add animation back and slide shutter down
+                preloader.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)';
+                preloader.style.transform = 'translateY(0)';
+
+                // Wait for the slide-down animation to finish, then navigate
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 800);
+            });
+        });
+
+        // 3. Safari / iOS Cache Fix
+        // Browsers often cache the page state (including closed shutter). 
+        // This resets it if the user hits the browser's 'Back' button.
+        window.addEventListener('pageshow', (e) => {
+            if (e.persisted) {
+                preloader.style.transition = 'none';
+                preloader.style.transform = 'translateY(0)';
+                void preloader.offsetWidth;
+
+                preloader.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)';
+                preloader.classList.add('is-hidden');
+            }
+        });
+    }
+
     // === 1. HEADER SCROLL EFFECT ===
     const header = document.querySelector('.site-header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+    let lastScrollY = window.scrollY;
 
     // === 2. MOBILE MENU ===
     const burgerBtn = document.querySelector('.burger-btn');
@@ -122,4 +177,39 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'ArrowRight') changeSlide('next');
         if (e.key === 'ArrowLeft') changeSlide('prev');
     });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px', // Removed negative margin to trigger immediately
+        threshold: 0       // Triggers when at least 1px is visible
+    };
+
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target); // Stop observing once revealed
+            }
+        });
+    }, observerOptions);
+
+    // Find all elements with .fade-up class and observe them
+    document.querySelectorAll('.fade-up').forEach(element => {
+        scrollObserver.observe(element);
+    });
+
+    // FORCE REVEAL FOR ABOVE-THE-FOLD CONTENT
+    // If a section (like the contact page) is already in the viewport on load,
+    // reveal it immediately without waiting for a scroll event.
+    setTimeout(() => {
+        document.querySelectorAll('.fade-up').forEach(element => {
+            const rect = element.getBoundingClientRect();
+            // Check if the top of the element is visible in the window
+            if (rect.top <= window.innerHeight) {
+                element.classList.add('is-visible');
+                scrollObserver.unobserve(element);
+            }
+        });
+    }, 150);
 });

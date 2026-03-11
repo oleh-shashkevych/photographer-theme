@@ -3,63 +3,70 @@
  * Template Name: Front Page
  */
 
-get_header(); 
+get_header();
+
 ?>
 
 <main class="site-main">
     
-    <?php if( have_rows('portfolio_gallery') ): ?>
-    <section class="portfolio-grid">
-        <div class="container-fluid">
-            
-            <div class="chaotic-grid">
-                <?php 
-                $counter = 0; 
-                while( have_rows('portfolio_gallery') ): the_row(); 
-                    $image_id = get_sub_field('image'); 
-                    ?>
+    <?php if (have_rows('portfolio_gallery')): ?>
+    <section class="portfolio-grid fade-up">
+        <div class="container">
+            <div class="portfolio-regular-grid">
+                <?php
+    $counter = 0;
+    while (have_rows('portfolio_gallery')):
+        the_row();
+        $image_id = get_sub_field('image');
+?>
                     <div class="grid-item">
                         <div class="grid-item__inner">
-                            <?php echo wp_get_attachment_image( $image_id, 'full', false, ['class' => 'grid-img'] ); ?>
+                            <?php echo wp_get_attachment_image($image_id, 'full', false, ['class' => 'grid-img']); ?>
                         </div>
                     </div>
-                <?php endwhile; ?>
+                <?php
+    endwhile; ?>
             </div>
 
         </div>
     </section>
-    <?php endif; ?>
+    <?php
+endif; ?>
 
 
-    <?php if( have_rows('services_list') ): ?>
-    <section class="services-section">
+    <?php if (have_rows('services_list')): ?>
+    <section class="services-section fade-up">
         <div class="container">
             
-            <?php if( $sec_title = get_field('services_section_title') ): ?>
+            <?php if ($sec_title = get_field('services_section_title')): ?>
                 <h2 class="section-title"><?php echo esc_html($sec_title); ?></h2>
-            <?php endif; ?>
+            <?php
+    endif; ?>
 
             <div class="services-grid">
-                <?php while( have_rows('services_list') ): the_row(); 
-                    $type = get_sub_field('media_type');
-                    $title = get_sub_field('title');
-                    $desc = get_sub_field('description');
-                    $btn = get_sub_field('btn_label');
-                    $slug = get_sub_field('slug');
-                    $link = home_url('/contact/?service_id=' . $slug); 
-                ?>
+                <?php while (have_rows('services_list')):
+        the_row();
+        $type = get_sub_field('media_type');
+        $title = get_sub_field('title');
+        $desc = get_sub_field('description');
+        $btn = get_sub_field('btn_label');
+        $slug = get_sub_field('slug');
+        $link = home_url('/contact/?service_id=' . $slug);
+?>
                 
                 <div class="service-item">
                     
                     <div class="service-media">
                         <a href="<?php echo esc_url($link); ?>" class="media-link">
-                            <?php if( $type == 'video' && $vid_url = get_sub_field('video') ): ?>
+                            <?php if ($type == 'video' && $vid_url = get_sub_field('video')): ?>
                                 <video autoplay loop muted playsinline>
                                     <source src="<?php echo esc_url($vid_url); ?>" type="video/mp4">
                                 </video>
-                            <?php elseif( $img_id = get_sub_field('image') ): ?>
-                                <?php echo wp_get_attachment_image( $img_id, 'large' ); ?>
-                            <?php endif; ?>
+                            <?php
+        elseif ($img_id = get_sub_field('image')): ?>
+                                <?php echo wp_get_attachment_image($img_id, 'large'); ?>
+                            <?php
+        endif; ?>
                         </a>
                     </div>
 
@@ -73,33 +80,37 @@ get_header();
 
                 </div>
 
-                <?php endwhile; ?>
+                <?php
+    endwhile; ?>
             </div>
 
         </div>
     </section>
-    <?php endif; ?>
+    <?php
+endif; ?>
 
 
-    <?php if( $quote = get_field('home_quote_text') ): ?>
-    <section class="quote-section">
+    <?php if ($quote = get_field('home_quote_text')): ?>
+    <section class="quote-section fade-up">
         <div class="container">
             <div class="quote-content">
                 <?php echo $quote; ?>
             </div>
         </div>
     </section>
-    <?php endif; ?>
+    <?php
+endif; ?>
 
 
-    <?php if( have_rows('exp_list') ): ?>
-    <section class="expertise-section">
+    <?php if (have_rows('exp_list')): ?>
+    <section class="expertise-section fade-up">
         <div class="container">
             
             <div class="expertise-header">
-                <?php if( $tag = get_field('exp_tagline') ): ?>
+                <?php if ($tag = get_field('exp_tagline')): ?>
                     <span class="expertise-tagline"><?php echo esc_html($tag); ?></span>
-                <?php endif; ?>
+                <?php
+    endif; ?>
 
                 <h2 class="expertise-main-title">
                     <span class="title-top"><?php echo esc_html(get_field('exp_title_top')); ?></span>
@@ -108,49 +119,55 @@ get_header();
             </div>
 
             <div class="expertise-grid">
-                <?php while( have_rows('exp_list') ): the_row(); ?>
+                <?php while (have_rows('exp_list')):
+        the_row(); ?>
                     <div class="expertise-item">
                         <h3 class="exp-item-title"><?php echo esc_html(get_sub_field('title')); ?></h3>
                         <div class="exp-item-desc">
                             <?php echo wp_kses_post(get_sub_field('description')); ?>
                         </div>
                     </div>
-                <?php endwhile; ?>
+                <?php
+    endwhile; ?>
             </div>
 
         </div>
     </section>
-    <?php endif; ?>
+    <?php
+endif; ?>
 
 
-    <?php if( $quote2 = get_field('home_quote_text_2') ): ?>
-    <section class="quote-section">
+    <?php if ($quote2 = get_field('home_quote_text_2')): ?>
+    <section class="quote-section fade-up">
         <div class="container">
             <div class="quote-content">
                 <?php echo $quote2; ?>
             </div>
         </div>
     </section>
-    <?php endif; ?>
+    <?php
+endif; ?>
 
 
-    <?php if( get_field('about_name') ): ?>
-    <section class="about-section">
+    <?php if (get_field('about_name')): ?>
+    <section class="about-section fade-up">
         <div class="container">
             <div class="about-grid">
                 
                 <div class="about-content">
-                    <?php if( $tag = get_field('about_tagline') ): ?>
+                    <?php if ($tag = get_field('about_tagline')): ?>
                         <span class="about-tagline"><?php echo esc_html($tag); ?></span>
-                    <?php endif; ?>
+                    <?php
+    endif; ?>
 
                     <h2 class="about-name">
                         <?php echo get_field('about_name'); ?>
                     </h2>
 
-                    <?php if( $sub = get_field('about_subheading') ): ?>
+                    <?php if ($sub = get_field('about_subheading')): ?>
                         <h3 class="about-subheading"><?php echo esc_html($sub); ?></h3>
-                    <?php endif; ?>
+                    <?php
+    endif; ?>
 
                     <div class="about-bio">
                         <?php echo wp_kses_post(get_field('about_bio')); ?>
@@ -158,52 +175,59 @@ get_header();
                 </div>
 
                 <div class="about-image-wrapper">
-                    <?php 
-                    $about_img = get_field('about_image');
-                    if( $about_img ) {
-                        echo wp_get_attachment_image( $about_img, 'large', false, array('class' => 'about-img') );
-                    }
-                    ?>
+                    <?php
+    $about_img = get_field('about_image');
+    if ($about_img) {
+        echo wp_get_attachment_image($about_img, 'large', false, array('class' => 'about-img'));
+    }
+?>
                 </div>
 
             </div>
         </div>
     </section>
-    <?php endif; ?>
+    <?php
+endif; ?>
 
 
-    <?php if( have_rows('clients_list') ): ?>
-    <section class="clients-section">
+    <?php if (have_rows('clients_list')): ?>
+    <section class="clients-section fade-up">
         <div class="container">
             
-            <?php if( $tag = get_field('clients_tagline') ): ?>
+            <?php if ($tag = get_field('clients_tagline')): ?>
                 <div class="clients-header">
                     <span class="clients-tagline"><?php echo esc_html($tag); ?></span>
                 </div>
-            <?php endif; ?>
+            <?php
+    endif; ?>
 
             <div class="clients-grid">
-                <?php while( have_rows('clients_list') ): the_row(); 
-                    $logo = get_sub_field('logo');
-                    $link = get_sub_field('link');
-                ?>
+                <?php while (have_rows('clients_list')):
+        the_row();
+        $logo = get_sub_field('logo');
+        $link = get_sub_field('link');
+?>
                     <div class="client-item">
-                        <?php if( $link ): ?>
+                        <?php if ($link): ?>
                             <a href="<?php echo esc_url($link); ?>" target="_blank" rel="noopener" class="client-link">
-                                <?php echo wp_get_attachment_image( $logo, 'medium', false, array('class' => 'client-logo') ); ?>
+                                <?php echo wp_get_attachment_image($logo, 'medium', false, array('class' => 'client-logo')); ?>
                             </a>
-                        <?php else: ?>
+                        <?php
+        else: ?>
                             <div class="client-logo-wrapper">
-                                <?php echo wp_get_attachment_image( $logo, 'medium', false, array('class' => 'client-logo') ); ?>
+                                <?php echo wp_get_attachment_image($logo, 'medium', false, array('class' => 'client-logo')); ?>
                             </div>
-                        <?php endif; ?>
+                        <?php
+        endif; ?>
                     </div>
-                <?php endwhile; ?>
+                <?php
+    endwhile; ?>
             </div>
 
         </div>
     </section>
-    <?php endif; ?>
+    <?php
+endif; ?>
 
 </main>
 

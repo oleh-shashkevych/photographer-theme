@@ -3,7 +3,8 @@
  * Template Name: Contact Page
  */
 
-get_header(); 
+get_header();
+
 ?>
 
 <main class="site-main">
@@ -15,12 +16,12 @@ get_header();
                 
                 <div class="contact-visual">
                     <div class="contact-image-shape">
-                        <div class="shape-overlay"></div> <?php 
-                        $img_id = get_field('contact_image');
-                        if( $img_id ) {
-                            echo wp_get_attachment_image( $img_id, 'large', false, ['class' => 'c-img'] );
-                        }
-                        ?>
+                        <div class="shape-overlay"></div> <?php
+$img_id = get_field('contact_image');
+if ($img_id) {
+    echo wp_get_attachment_image($img_id, 'large', false, ['class' => 'c-img']);
+}
+?>
                     </div>
                 </div>
 
@@ -28,17 +29,18 @@ get_header();
                     
                     <h1 class="contact-title"><?php echo get_field('contact_title'); ?></h1>
                     
-                    <?php if( $desc = get_field('contact_desc') ): ?>
+                    <?php if ($desc = get_field('contact_desc')): ?>
                         <div class="contact-desc"><?php echo wp_kses_post($desc); ?></div>
-                    <?php endif; ?>
+                    <?php
+endif; ?>
 
                     <div class="contact-form-area">
-                        <?php 
-                        $shortcode = get_field('contact_shortcode');
-                        if( $shortcode ) {
-                            echo do_shortcode( $shortcode );
-                        }
-                        ?>
+                        <?php
+$shortcode = get_field('contact_shortcode');
+if ($shortcode) {
+    echo do_shortcode($shortcode);
+}
+?>
                     </div>
 
                 </div>
